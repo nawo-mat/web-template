@@ -25,6 +25,7 @@ module.exports = merge(common, {
       ],
       svgo: {},
     }),
-    new ImageminWebpWebpackPlugin(),
+    // webpを生成したい場合はコメントをオフ
+    // new ImageminWebpWebpackPlugin(),
   ],
 });

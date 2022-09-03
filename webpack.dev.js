@@ -11,12 +11,6 @@ module.exports = merge(common, {
     aggregateTimeout: 500,
     poll: 3000,
   },
-  cache: {
-    type: "filesystem",
-    buildDependencies: {
-      config: [__filename],
-    },
-  },
   devServer: {
     static: {
       directory: outputPath,

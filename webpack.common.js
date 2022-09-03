@@ -31,28 +31,18 @@ module.exports = {
         use: [
           {
             loader: MiniCssExtractPlugin.loader,
+            options: {
+              esModule: false,
+            },
           },
+          // styleをhtml内に出力したい場合はコメントオフ
+          // "style-loader",
           {
             loader: "css-loader",
             options: {
               url: true,
               importLoaders: 2,
               sourceMap: true,
-            },
-          },
-          {
-            loader: "postcss-loader",
-            options: {
-              postcssOptions: {
-                plugins: [
-                  [
-                    "postcss-preset-env",
-                    {
-                      browsers: "last 2 versions",
-                    },
-                  ],
-                ],
-              },
             },
           },
           {
@@ -65,6 +55,7 @@ module.exports = {
       },
       {
         test: /\.js$/,
+        exclude: /(node_modules|bower_components)/,
         use: [
           {
             loader: "babel-loader",
@@ -79,6 +70,7 @@ module.exports = {
         type: "asset",
         parser: {
           dataUrlCondition: {
+            // 100KB未満はJSへ埋め込み
             maxSize: 100 * 1024,
           },
         },
@@ -102,7 +94,6 @@ module.exports = {
       favicon: "./favicon.ico",
     }),
     new MiniCssExtractPlugin({
-      // 出力先の設定
       filename: "css/style.css",
     }),
     new CopyWebpackPlugin({
@@ -110,10 +101,6 @@ module.exports = {
         {
           from: path.join(__dirname, "src", "img"),
           to: path.join(__dirname, "dist", "img"),
-        },
-        {
-          from: path.join(__dirname, "src", "fontawesome"),
-          to: path.join(__dirname, "dist", "fontawesome"),
         },
       ],
     }),
